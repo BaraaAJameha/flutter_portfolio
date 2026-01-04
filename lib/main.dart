@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'core/theme/app_theme.dart';
+import 'providers/theme_provider.dart';
+import 'home_page.dart';
+
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.watch<ThemeProvider>();
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.darkTheme,
+      themeMode: theme.isDark ? ThemeMode.dark : ThemeMode.light,
+      home: const HomePage(),
+    );
+  }
+}
